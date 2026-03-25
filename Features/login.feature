@@ -3,11 +3,11 @@ Feature: Login
 
 Scenario: Successful login with valid credentials
    Given User launch Chrome browser
-   When User opens url "https://admin-demo.nopcommerce.com/login?returnUrl=%2Fadmin%2F"
-   And User enters Email as "admin@yourstore.com" and Password as "admin"
+   When User opens url "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+   And User enters Username as "Admin" and Password as "admin@123"
    And Click on login
-   Then page title should be "Dashboard / nopCommerce administration"
+   Then User should be on Dashboard page
    When User click on log out link
-   Then Page Title should be "Your store. Login"
+   Then User should be on Login page
    And close browser
    
