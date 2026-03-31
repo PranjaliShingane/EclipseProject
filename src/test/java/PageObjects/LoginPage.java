@@ -4,52 +4,56 @@ package PageObjects;
 
 import java.time.Duration;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage {
+import Base.BaseClass;
 
-    WebDriver ldriver;
+public class LoginPage extends BaseClass{
 
-    public LoginPage(WebDriver rdriver) {
-        ldriver = rdriver;
-        PageFactory.initElements(rdriver, this);
-    }
+    public LoginPage(WebDriver driver) {
+		super(driver);
+		 
+	}
 
-    @FindBy(id = "Email")
+
+    @FindBy(name = "username")
     @CacheLookup
     WebElement txtEmail;
     
-    @FindBy(id="Password")
+    @FindBy(name="password")
     @CacheLookup
     WebElement txtPassword;
     
-    @FindBy(xpath="//button[normalize-space()='Log in']")
+    @FindBy(tagName="button")
     @CacheLookup
     WebElement btnLogin;
     
-    @FindBy(xpath="//a[normalize-space()='Logout']")
-    @CacheLookup
+    @FindBy(xpath="//a[text()='Logout']")
     WebElement lnkLogout;    
+      
+    @FindBy(xpath="//h6[normalize-space()='Dashboard']")
+    WebElement Title;
     
+    @FindBy(xpath = "//span[@class='oxd-userdropdown-tab']")
+    WebElement userDropdown;
+    
+   
 
     public void clickLogout() {
     
 
-    	    WebDriverWait wait = new WebDriverWait(ldriver, Duration.ofSeconds(10));
+    	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-    	    // Wait for modal to disappear
-    	    wait.until(ExpectedConditions.invisibilityOfElementLocated(
-    	            By.id("loadCustomerStatisticsAlert-action-alert")));
-
-    	    wait.until(ExpectedConditions.elementToBeClickable(lnkLogout));
-    	    lnkLogout.click();
+    	    // Wait for modal to appear
+    	    wait.until(ExpectedConditions.elementToBeClickable(userDropdown)).click();
+    	             
+    	    wait.until(ExpectedConditions.elementToBeClickable(lnkLogout)).click();
+    	   
     	}
        
     
@@ -67,13 +71,15 @@ public class LoginPage {
     	txtPassword.sendKeys(pwd);
     }
     
-    public void ClickLogout()
-    {
-    	lnkLogout.click();
-    }
-    
     public void clickLogin()
     {
     	btnLogin.click();
     }
+    
+    
+    public boolean isDashboardDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.visibilityOf(Title)).isDisplayed();
+    }
+
 }
