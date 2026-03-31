@@ -28,7 +28,7 @@ public class Loginsteps {
 		driver = new ChromeDriver();
         lp = new LoginPage(driver);
         driver.manage().window().maximize();
-
+        
 	}
 
 	@When("User opens url {string}")

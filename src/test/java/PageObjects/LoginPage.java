@@ -8,18 +8,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage {
+import Base.BaseClass;
 
-    WebDriver ldriver;
+public class LoginPage extends BaseClass{
 
-    public LoginPage(WebDriver rdriver) {
-        ldriver = rdriver;
-        PageFactory.initElements(rdriver, this);
-    }
+    public LoginPage(WebDriver driver) {
+		super(driver);
+		 
+	}
+
 
     @FindBy(name = "username")
     @CacheLookup
@@ -47,7 +47,7 @@ public class LoginPage {
     public void clickLogout() {
     
 
-    	    WebDriverWait wait = new WebDriverWait(ldriver, Duration.ofSeconds(10));
+    	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
     	    // Wait for modal to appear
     	    wait.until(ExpectedConditions.elementToBeClickable(userDropdown)).click();
@@ -71,8 +71,6 @@ public class LoginPage {
     	txtPassword.sendKeys(pwd);
     }
     
-  
-    
     public void clickLogin()
     {
     	btnLogin.click();
@@ -80,7 +78,7 @@ public class LoginPage {
     
     
     public boolean isDashboardDisplayed() {
-        WebDriverWait wait = new WebDriverWait(ldriver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         return wait.until(ExpectedConditions.visibilityOf(Title)).isDisplayed();
     }
 
